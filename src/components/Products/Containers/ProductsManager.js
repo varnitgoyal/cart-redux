@@ -9,18 +9,21 @@ export class ProductsManager extends Component {
       name: data.name,
       price: data.price,
       id: data.id,
-      quantity: 1
+      quantity: 1,
+      productQuantity:data.quantity
     });
   };
   render() {
     return (
       <div className="products">
-        {this.props.products.map(product => {
+      
+        {this.props.products.products.map(product => {
           return (
             <ShowProduct
               handleAddToCart={this.handleAddToCart}
               key={product.id}
               data={product}
+              isAddedToCart={product.isAddedToCart}
             />
           );
         })}
@@ -30,7 +33,11 @@ export class ProductsManager extends Component {
 }
 
 const mapStateToProps = state => {
-  return { products: state.products };
+  return { products: state.products,
+    
+
+  
+  };
 };
 
 const mapDispatchToProps = {

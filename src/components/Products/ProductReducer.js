@@ -6,34 +6,45 @@ import {
   REMOVE_FROM_CART
 } from "../Cart/CartActionTypes";
 
-const initialState = [...products];
+const initialState = {
+  products:[...products],
+
+
+}
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
-      return state;
+      return state.products;
     }
 
     case ADD_TO_CART: {
-      return state.map(item => {
+      const products= state.products.map(item => {
         if (item.id !== action.payload.id) {
           return item;
         }
 
         return {
           ...item,
-          quantity: item.quantity - 1
+          quantity: item.quantity - 1,
+          isAddedToCart:true
+
+
         };
       });
+
+      return {...state, products, isAddedToCart:true};
     }
     case REMOVE_FROM_CART: {
-      const products = [...state];
+      const products = [...state.products];
       const product = products.find(item => item.id === action.payload.id);
       product.quantity += action.payload.quantity;
-      return [...products];
+      product.isAddedToCart=false;
+      return {...state,products:[...products]};
     }
 
     case INCREASE_CART_QUANTITY: {
-      return state.map(item => {
+      const products= state.products.map(item => {
         if (item.id !== action.id) {
           return item;
         }
@@ -43,10 +54,11 @@ const productReducer = (state = initialState, action) => {
           quantity: item.quantity - 1
         };
       });
+      return {...state,products:products}
     }
 
     case DECREASE_CART_QUANTITY: {
-      return state.map(item => {
+      const products= state.products.map(item => {
         if (item.id !== action.id) {
           return item;
         }
@@ -56,6 +68,12 @@ const productReducer = (state = initialState, action) => {
           quantity: item.quantity + 1
         };
       });
+
+      return {
+        ...state,
+        products:products
+      }
+
     }
 
     default: {
