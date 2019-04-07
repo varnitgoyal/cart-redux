@@ -5,9 +5,10 @@ const ShowProductStyled=styled.div`
 position:relative;
 background-color:#ededed;
 margin:10px 10px;
-max-width:25%;
-min-width:35%;
-min-height:7%;
+max-width:250px;
+min-width:250px;
+min-height:480px;
+max-height:550px;
 text-align:center;
 
 
