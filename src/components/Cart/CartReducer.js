@@ -20,10 +20,11 @@ const cartReducer = (state = cartState, action) => {
     }
     case REMOVE_FROM_CART: {
       let grandTotal=state.grandTotal;
+
       const findIndex = state.products.findIndex(
         item => item.id === action.payload.id
       );
-      grandTotal-=state.products[findIndex].price;
+      grandTotal-=state.products[findIndex].price*action.payload.quantity;
       const products = [...state.products.slice(0, findIndex),
         ...state.products.slice(findIndex+1,state.products.length)
     
